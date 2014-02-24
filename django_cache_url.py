@@ -19,6 +19,17 @@ urlparse.uses_netloc.append('pymemcached')
 urlparse.uses_netloc.append('redis')
 urlparse.uses_netloc.append('hiredis')
 
+# Register these schemes for query parsing too
+urlparse.uses_query.append('db')
+urlparse.uses_query.append('dummy')
+urlparse.uses_query.append('file')
+urlparse.uses_query.append('locmem')
+urlparse.uses_query.append('memcached')
+urlparse.uses_query.append('djangopylibmc')
+urlparse.uses_query.append('pymemcached')
+urlparse.uses_query.append('redis')
+urlparse.uses_query.append('hiredis')
+
 DEFAULT_ENV = 'CACHE_URL'
 
 CACHE_TYPES = {
