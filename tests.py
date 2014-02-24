@@ -128,6 +128,30 @@ class TestRedisCache(Base):
         assert_equals(config['KEY_PREFIX'], 'prefix')
 
 
+class TestRedisCacheWithTimeout(Base):
+    def setUp(self):
+        super(TestRedisCacheWithTimeout, self).setUp()
+        environ['CACHE_URL'] = 'redis://127.0.0.1:6379/0/prefix?timeout=10'
+
+    def test_redis_url_returns_redis_cache(self):
+        location = 'redis_cache.cache.RedisCache'
+        config = django_cache_url.config()
+        assert_equals(config['BACKEND'], location)
+
+    def test_redis_url_returns_location_and_port_from_url(self):
+        config = django_cache_url.config()
+        assert_equals(config['LOCATION'], '127.0.0.1:6379:0')
+
+    def test_redis_url_returns_prefix_from_url(self):
+        config = django_cache_url.config()
+        assert_equals(config['KEY_PREFIX'], 'prefix')
+
+    def test_redis_url_returns_timeout_from_url(self):
+        config = django_cache_url.config()
+        assert_equals(config['TIMEOUT'], 10)
+
+
+
 class TestHiredisCache(Base):
     def setUp(self):
         super(TestHiredisCache, self).setUp()

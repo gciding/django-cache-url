@@ -128,4 +128,9 @@ def parse(url):
             config['LOCATION'] = url.netloc
         config['KEY_PREFIX'] = url.path[1:]
 
+    # TIMEOUT
+    query_params = urlparse.parse_qs(url.query)
+    if 'timeout' in query_params:
+        config['TIMEOUT'] = int(query_params['timeout'][0])
+
     return config
